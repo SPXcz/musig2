@@ -18,7 +18,7 @@ once_cell = { version = "1.18.0", default-features = false }
 rand = { version = "0.8.5", optional = true, default-features = false, features = ["std_rng"] }
 secp = { version = "0.4", default-features = false }
 secp256k1 = { version = "0.30", optional = true, default-features = false }
-serde = { version = "1.0.188", default-features = false, optional = true }
+serde = { version = "1.0.188", default-features = false, optional = true, features = ["serde_derive"] } # Added "serde_derive" as a production dependency
 serdect = { version = "0.2.0", default-features = false, optional = true, features = ["alloc"] }
 sha2 = { version = "0.10.8", default-features = false }
 subtle = { version = "2.5.0", default-features = false }
@@ -32,7 +32,7 @@ rand = "0.8.5"
 secp = { version = "0.4", default-features = false, features = ["serde", "rand", "secp256k1-invert"]  }
 
 [features]
-default = ["secp256k1"]
+default = ["secp256k1", "serde"] # Added serde as a default feature
 secp256k1 = ["dep:secp256k1", "secp/secp256k1"]
 k256 = ["dep:k256", "secp/k256"]
 serde = ["dep:serde", "secp/serde", "dep:serdect"]

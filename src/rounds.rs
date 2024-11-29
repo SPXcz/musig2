@@ -5,10 +5,14 @@ use crate::{
 };
 
 use secp::{MaybePoint, MaybeScalar, Point, Scalar};
+use serde;
 
 /// A simple state-machine which receives values of a given type `T` and
 /// stores them in a vector at given indices. Returns an error if attempting
 /// to fill a slot which is already taken by a different (not-equal) value.
+
+/// Changed to be serializable. If possible, delete the secnonce after use or don't serialize it at all.
+#[derive(serde::Serialize, serde::Deserialize)]
 struct Slots<T: Clone + Eq> {
     slots: Vec<Option<T>>,
     open_slots: Vec<usize>,
@@ -74,6 +78,9 @@ impl<T: Clone + Eq> Slots<T> {
 /// partial signature, `FirstRound`'s API is written to encourage that a
 /// [`SecNonce`] should **never be reused.** Take care not to shoot yourself in
 /// the foot by attempting to work around this restriction.
+///
+/// Changed to be serializable. If possible, delete the secnonce after use or don't serialize it at all.
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct FirstRound {
     key_agg_ctx: KeyAggContext,
     signer_index: usize, // Our key's index in `key_agg_ctx`
