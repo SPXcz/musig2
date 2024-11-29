@@ -345,6 +345,9 @@ impl FirstRound {
 /// This round handles collecting partial signatures one by one. Once
 /// all signers have provided a signature, it can be finalized into
 /// an aggregated Schnorr signature valid for the group's aggregated key.
+
+// Changed to be serializable.
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct SecondRound<M: AsRef<[u8]>> {
     key_agg_ctx: KeyAggContext,
     signer_index: usize,
