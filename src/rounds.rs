@@ -12,7 +12,7 @@ use serde;
 /// to fill a slot which is already taken by a different (not-equal) value.
 
 /// Changed to be serializable. If possible, delete the secnonce after use or don't serialize it at all.
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(serde::Serialize, serde::Deserialize, Clone)]
 struct Slots<T: Clone + Eq> {
     slots: Vec<Option<T>>,
     open_slots: Vec<usize>,
@@ -80,7 +80,7 @@ impl<T: Clone + Eq> Slots<T> {
 /// the foot by attempting to work around this restriction.
 ///
 /// Changed to be serializable. If possible, delete the secnonce after use or don't serialize it at all.
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(serde::Serialize, serde::Deserialize, Clone)]
 pub struct FirstRound {
     key_agg_ctx: KeyAggContext,
     signer_index: usize, // Our key's index in `key_agg_ctx`
@@ -347,7 +347,7 @@ impl FirstRound {
 /// an aggregated Schnorr signature valid for the group's aggregated key.
 
 // Changed to be serializable.
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(serde::Serialize, serde::Deserialize, Clone)]
 pub struct SecondRound<M: AsRef<[u8]>> {
     key_agg_ctx: KeyAggContext,
     signer_index: usize,
